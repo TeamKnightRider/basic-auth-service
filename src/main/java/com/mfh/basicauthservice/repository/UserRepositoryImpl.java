@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
-import com.mfh.commonmodel.account.Account;
 import com.mfh.commonmodel.user.User;
+import com.mfh.commonmodel.user.account.Account;
 
 @Repository
 public class UserRepositoryImpl implements CustomUserRepository {
@@ -32,9 +32,7 @@ public class UserRepositoryImpl implements CustomUserRepository {
     CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
     Root<User> root = criteriaQuery.from(User.class);
     Join<Account, User> join = root.join("account", JoinType.INNER);
-    //    criteriaQuery.select(root);
-    //    criteriaQuery.multiselect(root)
-    Predicate usernamePredicate = criteriaBuilder.equal(join.get("accountName"), userName);
+    Predicate usernamePredicate = criteriaBuilder.equal(join.get(Account.PROP_ACCOUNT_NAME), userName);
     criteriaQuery.where(usernamePredicate);
     TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
 
@@ -68,9 +66,5 @@ public class UserRepositoryImpl implements CustomUserRepository {
     User user = userList.get(0);
     Hibernate.initialize(user.getRoles());
     return Optional.of(user);
-  }
-
-  public Class<User> getEntityClass() {
-    return User.class;
   }
 }

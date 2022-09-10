@@ -12,8 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.mfh.commonmodel.account.Account;
 import com.mfh.commonmodel.user.User;
+import com.mfh.commonmodel.user.account.Account;
 
 @Slf4j
 @NoArgsConstructor
